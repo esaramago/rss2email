@@ -1,0 +1,11 @@
+[
+  {
+    "name": "Proton Blog",
+    "url": "https://proton.me/blog/feed",
+    "categories": [
+      "Product Updates",
+      "Proton News"
+    ],
+    "color": "#372580"
+  }
+]
