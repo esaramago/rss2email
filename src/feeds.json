@@ -7,5 +7,20 @@
       "Proton News"
     ],
     "color": "#372580"
+  },
+  {
+    "name": "Brad Frost blog",
+    "url": "https://feeds.feedburner.com/brad-frosts-blog",
+    "color": "#be6700"
+  },
+  {
+    "name": "Astro blog",
+    "url": "https://astro.build/rss.xml",
+    "color": "#3245ff"
+  },
+  {
+    "name": "Ahmad Shadeed blog",
+    "url": "https://ishadeed.com/feed.xml",
+    "color": "#2650c5"
   }
 ]

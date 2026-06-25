@@ -9,7 +9,7 @@ const rss2Email = new RSS2Email()
 if (process.env.ENV === 'development') {
   // Test execution
   rss2Email.init()
+} else {
+  // Execute once a day
+  schedule('0 0 * * *', () => rss2Email.init())
 }
-
-// Execute once a day
-schedule('0 0 * * *', () => rss2Email.init())

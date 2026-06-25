@@ -8,15 +8,15 @@ export default class TemplateHTML {
     const html = `
       <html>
       <head>
-        ${this.renderCSS()}
+        ${this.#renderCSS()}
       </head>
 
-      ${this.renderBody()}
+      ${this.#renderBody()}
     `
     return html.replaceAll('\n', '')
   }
 
-  renderBody() {
+  #renderBody() {
     return `
       <body>
         <p style="margin-bottom: 40px;">Aqui estão os artigos da última semana das fontes RSS:</p>
@@ -30,11 +30,11 @@ export default class TemplateHTML {
                 feed.items.length ? feed.items.map(item => `
                   <article style="margin-bottom: 40px;">
                     <time>${new Date(item.pubDate).toLocaleDateString()}</time>
-                    <p style="text-transform: uppercase;">${item.categories?.join(', ') || 'Sem categoria'}</p>
+                    ${item.categories ? `<p style="text-transform: uppercase;">${items.categories?.join(', ')}</p>` : ''}
                     <a href="${item.link}" style="color: ${color};">
                       <h3 style="font-size: 24px; line-height: 1.4; margin-bottom: 10px;">${item.title}</h3>
                     </a>
-                    ${item.contentSnippet ? `<p>${item.contentSnippet}</p>` : ''}
+                    ${this.#getSummary(item)}
                   </article>
                 `) : `
                   <p>Não há artigos novos nesta semana.</p>
@@ -50,8 +50,8 @@ export default class TemplateHTML {
       </body>
     `
   }
-  renderCSS() {
-    return `
+  #renderCSS() {
+    return /*css*/`
       <style>
         body {
           font-family: sans-serif;
@@ -75,7 +75,24 @@ export default class TemplateHTML {
           font-size: 14px;
           color: #555;
         }
+
+        @media (prefers-color-scheme: dark) {
+          body {
+            backgroud-color: #212426;
+            color: #FFF;
+          }
+        }
       </style>
     `
+  }
+
+  #getSummary(item) {
+    if (item.summary) {
+      return item.summary
+    } else if (item.contentSnippet) {
+      return `<p>${item.contentSnippet}</p>`
+    } else {
+      return ''
+    }
   }
 }
