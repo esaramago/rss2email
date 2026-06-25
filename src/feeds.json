@@ -22,5 +22,10 @@
     "name": "Ahmad Shadeed blog",
     "url": "https://ishadeed.com/feed.xml",
     "color": "#2650c5"
+  },
+  {
+    "name": "Josh Comeau's blog",
+    "url": "https://www.joshwcomeau.com/rss.xml",
+    "color": "#809fff"
   }
 ]
