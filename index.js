@@ -1,15 +1,18 @@
 import RSS2Email from './src/main.js'
 import { schedule } from 'node-cron'
 import dotenv from 'dotenv'
+import { readFile } from 'fs/promises'
 
 dotenv.config()
 
-const rss2Email = new RSS2Email()
+const feedsList = JSON.parse(await readFile(new URL('./src/feeds.json', import.meta.url), 'utf8'))
+const settings = JSON.parse(await readFile(new URL('./src/settings.json', import.meta.url), 'utf8'))
 
+const rss2Email = new RSS2Email(feedsList,settings)
 if (process.env.ENV === 'development') {
   // Test execution
   rss2Email.init()
 } else {
-  // Execute once a day
-  schedule('0 0 * * *', () => rss2Email.init())
+  // Execute every X days
+  schedule(`0 0 */${settings.intervalDays} * *`, () => rss2Email.init())
 }

@@ -27,5 +27,10 @@
     "name": "Josh Comeau's blog",
     "url": "https://www.joshwcomeau.com/rss.xml",
     "color": "#809fff"
+  },
+  {
+    "name": "Mistral",
+    "url": "https://mistral.ai/rss.xml",
+    "color": "#ff5229"
   }
 ]

@@ -1,19 +1,23 @@
 import dotenv from 'dotenv'
 import Parser from 'rss-parser'
 import { createTransport } from 'nodemailer'
-import { readFile } from 'fs/promises'
 import TemplateHTML from './template.html.js'
 
 dotenv.config()
 
 export default class RSS2Email {
 
+  constructor(feedsList, settings) {
+    this.feedsList = feedsList
+    this.settings = settings
+  }
+
   async init() {
 
-    const feedsList = JSON.parse(await readFile(new URL('./feeds.json', import.meta.url), 'utf8'))
+    if (!this.feedsList) return
 
     const feedsData = []
-    for (const feed of feedsList) {
+    for (const feed of this.feedsList) {
       const parser = new Parser()
       const parsedFeed = await parser.parseURL(feed.url)
       const feedData = await this.#getArticlesData(parsedFeed, feed.categories)
@@ -36,8 +40,8 @@ export default class RSS2Email {
     feed.items = feed.items.filter(item => {
       const pubDate = new Date(item.pubDate)
       const now = new Date()
-      const oneWeekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000)
-      return pubDate.getTime() >= oneWeekAgo.getTime()
+      const startDate = new Date(now.getTime() - (this.settings.intervalDays) * 24 * 60 * 60 * 1000)
+      return pubDate.getTime() >= startDate.getTime()
     })
 
     // filter articles by category
@@ -62,8 +66,8 @@ export default class RSS2Email {
     })
 
     await transporter.sendMail({
-      from: `"RSS2Email" <${process.env.EMAIL_FROM}>`,
-      to: process.env.EMAIL_TO,
+      from: `"RSS2Email" <${this.settings.emailFrom}>`,
+      to: this.settings.emailTo,
       subject,
       text,
     })

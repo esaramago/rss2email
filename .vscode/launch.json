@@ -4,6 +4,17 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "Send email",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "program": "${workspaceFolder}/index.js",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "Debug: Current File",
       "skipFiles": [
         "<node_internals>/**"
