@@ -1,5 +1,5 @@
 {
-  "intervalDays": 7,
+  "intervalDays": 1,
   "emailTo": "feeds@emanuelsaramago.com",
   "emailFrom": "rss2email@emanuelsaramago.com"
 }

@@ -32,5 +32,15 @@
     "name": "Mistral",
     "url": "https://mistral.ai/rss.xml",
     "color": "#ff5229"
+  },
+  {
+    "name": "Associação regador",
+    "url": "https://associacaoregador.pt/feed/",
+    "color": "#3E3EFE"
+  },
+  {
+    "name": "JF Penha de França",
+    "url": "https://jf-penhafranca.pt/noticias?format=feed&type=rss",
+    "color": "#243a56"
   }
 ]
