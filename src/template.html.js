@@ -87,10 +87,16 @@ export default class TemplateHTML {
     } else if (item.contentSnippet) {
       summary = `<p>${item.contentSnippet}</p>`
     }
-    // if summary is longer than 300 characters, truncate it and add "[...]"
-    if (summary.length > 300) {
-      summary = summary.substring(0, 300) + '[...]'
+
+    // if summary is longer than 400 characters, truncate it and add "[...]"
+    const maxLength = 400
+    if (summary.length > maxLength) {
+      summary = summary.substring(0, maxLength) + '[...]'
     }
+    // remove empty elements and line breakds from summary
+    summary = summary.replace(/<[^\/>][^>]*><\/[^>]+>/g, '')
+    summary = summary.replaceAll('\n', '')
+    summary = summary.replaceAll('\r', '')
     return summary
   }
 
