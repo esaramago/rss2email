@@ -51,6 +51,34 @@ export default class TemplateHTML {
       </body>
     `
   }
+  #renderCSS() {
+    return /*css*/`
+      <style>
+        body {
+          font-family: sans-serif;
+          font-size: 16px;
+          width: 100%;
+          max-width: 600px;
+          margin: 0 auto;
+          color: #333;
+        }
+        h1,
+        h2,
+        h3,
+        p {
+          margin: 0;
+        }
+
+        footer {
+          margin-top: 80px;
+          text-align: center;
+          font-size: 14px;
+          color: #666;
+        }
+
+      </style>
+    `
+  }
 
   #getSummary(item) {
     let summary = ''
