@@ -39,8 +39,7 @@ export default class RSS2Email {
     // filter articles from the last week
     feed.items = feed.items.filter(item => {
       const pubDate = new Date(item.pubDate)
-      const now = new Date()
-      const startDate = new Date(now.getTime() - (this.settings.intervalDays) * 24 * 60 * 60 * 1000)
+      const startDate = new Date(this.#getLastSentDate())
       return pubDate.getTime() >= startDate.getTime()
     })
 
@@ -52,6 +51,34 @@ export default class RSS2Email {
     }
 
     return feed
+  }
+
+  #getLastSentDate() {
+    const today = new Date()
+    const todayWeekday = today.getDay() // 0-6
+
+    // Ordenar os dias em ordem descendente
+    const sortedWeekdays = [...this.settings.weekdays].sort((a, b) => b - a)
+
+    // Encontrar o dia mais recente que é <= hoje
+    let lastSentWeekday = null
+    for (const weekday of sortedWeekdays) {
+      if (weekday <= todayWeekday) {
+        lastSentWeekday = weekday
+        break
+      }
+    }
+
+    // Se não encontrou, pega o último do array (que será o maior) e volta uma semana
+    if (lastSentWeekday === null) {
+      lastSentWeekday = sortedWeekdays[0]
+    }
+
+    const daysDiff = todayWeekday - lastSentWeekday
+    const lastSentDate = new Date(today)
+    lastSentDate.setDate(today.getDate() - daysDiff)
+
+    return lastSentDate
   }
 
   async #sendEmail(subject, text) {

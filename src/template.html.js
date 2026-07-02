@@ -5,7 +5,7 @@ export default class TemplateHTML {
   }
 
   render() {
-    const html = `
+    const html = /*html*/`
       <html>
       <head>
         ${this.#renderCSS()}
@@ -17,7 +17,7 @@ export default class TemplateHTML {
   }
 
   #renderBody() {
-    return `
+    return /*html*/`
       <body>
         <header>
           <h1 style="margin-bottom: 5px;">RSS2Email</h1>
@@ -51,43 +51,19 @@ export default class TemplateHTML {
       </body>
     `
   }
-  #renderCSS() {
-    return /*css*/`
-      <style>
-        body {
-          font-family: sans-serif;
-          font-size: 16px;
-          width: 100%;
-          max-width: 600px;
-          margin: 0 auto;
-          color: #333;
-        }
-        h1,
-        h2,
-        h3,
-        p {
-          margin: 0;
-        }
-
-        footer {
-          margin-top: 80px;
-          text-align: center;
-          font-size: 14px;
-          color: #666;
-        }
-
-      </style>
-    `
-  }
 
   #getSummary(item) {
+    let summary = ''
     if (item.summary) {
-      return item.summary
+      summary = item.summary
     } else if (item.contentSnippet) {
-      return `<p>${item.contentSnippet}</p>`
-    } else {
-      return ''
+      summary = `<p>${item.contentSnippet}</p>`
     }
+    // if summary is longer than 300 characters, truncate it and add "[...]"
+    if (summary.length > 300) {
+      summary = summary.substring(0, 300) + '[...]'
+    }
+    return summary
   }
 
 }

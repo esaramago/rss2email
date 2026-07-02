@@ -13,6 +13,8 @@ if (process.env.ENV === 'development') {
   // Test execution
   rss2Email.init()
 } else {
-  // Execute every X days
-  schedule(`0 0 */${settings.intervalDays} * *`, () => rss2Email.init())
+  // Execute every week day
+  const weekdays = settings.weekdays.map(day => parseInt(day+1)).join(',')
+  const cron = `0 0 * * ${weekdays}`
+  schedule(cron, () => rss2Email.init())
 }
