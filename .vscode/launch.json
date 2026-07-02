@@ -8,18 +8,7 @@
       "skipFiles": [
         "<node_internals>/**"
       ],
-      "program": "${workspaceFolder}/index.js",
-      "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen"
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Debug: Current File",
-      "skipFiles": [
-        "<node_internals>/**"
-      ],
-      "program": "${file}",
+      "program": "${workspaceFolder}/src/index.js",
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"
     }
