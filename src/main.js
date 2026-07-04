@@ -2,6 +2,7 @@ import dotenv from 'dotenv'
 import Parser from 'rss-parser'
 import { createTransport } from 'nodemailer'
 import TemplateHTML from './template.html.js'
+import convertWeekdays from './helpers/convertWeekdays.js'
 
 dotenv.config()
 
@@ -10,6 +11,8 @@ export default class RSS2Email {
   constructor(feedsList, settings) {
     this.feedsList = feedsList
     this.settings = settings
+
+    this.weekdays = convertWeekdays(settings.weekdays)
   }
 
   async init() {

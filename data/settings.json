@@ -1,5 +1,5 @@
 {
-  "weekdays": [0, 3],
+  "weekdays": [2, 4, 7],
   "emailTo": "feeds@emanuelsaramago.com",
   "emailFrom": "rss2email@emanuelsaramago.com"
 }
