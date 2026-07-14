@@ -99,7 +99,7 @@ export default class RSS2Email {
       from: `"RSS2Email" <${process.env.SMTP_USER}>`,
       to: this.settings.emailTo,
       subject,
-      text,
+      html: text,
     })
 
     console.log(`EMAIL SENT SUCCESSFULLY: ${subject}`)
