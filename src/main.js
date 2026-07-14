@@ -96,7 +96,7 @@ export default class RSS2Email {
     })
 
     await transporter.sendMail({
-      from: `"RSS2Email" <${this.settings.emailFrom}>`,
+      from: `"RSS2Email" <${process.env.SMTP_USER}>`,
       to: this.settings.emailTo,
       subject,
       text,
