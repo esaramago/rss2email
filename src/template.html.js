@@ -21,7 +21,7 @@ export default class TemplateHTML {
       <body>
         <header>
           <h1 style="margin-bottom: 5px;">RSS2Email</h1>
-          <p style="margin-bottom: 60px;">Aqui estão os artigos da última semana das fontes RSS:</p>
+          <p style="margin-bottom: 60px;">Os artigos mais recentes das tuas fontes RSS:</p>
         </header>
         <main>
           ${this.feeds.map(feed => {
