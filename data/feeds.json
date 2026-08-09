@@ -47,5 +47,10 @@
     "name": "PocketBase release notes",
     "url": "https://github.com/pocketbase/pocketbase/releases.atom",
     "color": "#333333"
+  },
+  {
+    "name": "PenPot",
+    "url": "https://penpot.app/blog/rss/",
+    "color": "#38efba"
   }
 ]
