@@ -22,25 +22,46 @@ export default class RSS2Email {
     const feedsData = []
     for (const feed of this.feedsList) {
       const parser = new Parser()
-      const parsedFeed = await parser.parseURL(feed.url)
-      const feedData = await this.#getArticlesData(parsedFeed, feed.categories)
-      feedData.color = feed.color || '#333'
-      feedsData.push(feedData)
+      try {
+        const parsedFeed = await parser.parseURL(feed.url)
+        const feedData = await this.#getArticlesData(parsedFeed, feed.categories)
+        feedData.color = feed.color || '#333'
+        feedsData.push(feedData)
+      } catch (error) {
+        console.error(`Error parsing feed ${feed.url}:`, error.message)
+      }
     }
 
-    const template = new TemplateHTML(feedsData)
-    const content = template.render()
+    const hasArticles = feedsData.some(feed => feed.items.length > 0)
 
-    await this.#sendEmail(
-      `Artigos de RSS Feed da semana`,
-      content
-    )
+    if (hasArticles) {
+
+      const template = new TemplateHTML(feedsData)
+      const content = template.render()
+
+      await this.#sendEmail(
+        `Artigos de RSS Feed da semana`,
+        content
+      )
+    } else {
+      console.log('No articles to be sent')
+    }
   }
 
-  async #getArticlesData(feed, categories = null) {
+  async #getArticlesData(parsedFeed, categories = null) {
+    // Normalize feed data - handle both formats:
+    // Format 1: { feed: { title, description, link, items: [...] } }
+    // Format 2: { title, description, link, items: [...] }
+    const feed = parsedFeed.feed || parsedFeed
+
+    // Ensure items exists
+    if (!feed.items) {
+      feed.items = []
+    }
 
     // filter articles from the last week
     feed.items = feed.items.filter(item => {
+      if (!item.pubDate) return false
       const pubDate = new Date(item.pubDate)
       const startDate = new Date(this.#getLastSentDate())
       return pubDate.getTime() >= startDate.getTime()
