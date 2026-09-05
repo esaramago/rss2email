@@ -31,7 +31,7 @@ export default class TemplateHTML {
                 <h2 style="font-size: 16px; color: ${color}; margin-bottom: 15px;">${feed.title}</h2>
                 ${feed.items.length ? feed.items.map(item => `
                     <article style="margin-bottom: 30px;">
-                      <time>${new Date(item.pubDate).toLocaleDateString()}</time>
+                      <time>${new Date(item.pubDate).toLocaleDateString('pt-PT')}</time>
                       ${item.categories && item.categories.length ? `<p style="text-transform: uppercase;">${item.categories?.join(', ')}</p>` : ''}
                       <a href="${item.link}" style="color: ${color};">
                         <h3 style="font-size: 24px; line-height: 1.4; margin-bottom: 10px;">${item.title}</h3>
