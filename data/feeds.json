@@ -53,5 +53,10 @@
     "name": "PenPot",
     "url": "https://penpot.app/blog/rss/",
     "color": "#38efba"
-  }
+  },
+  {
+    "name": "Immich",
+    "url": "https://immich.app/blog/feed.xml",
+
+  } 
 ]
